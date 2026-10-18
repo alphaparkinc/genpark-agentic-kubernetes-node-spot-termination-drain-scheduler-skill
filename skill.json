@@ -1,0 +1,37 @@
+{
+  "name": "genpark-agentic-kubernetes-node-spot-termination-drain-scheduler-skill",
+  "version": "1.0.0",
+  "description": "Cloud SRE & FinOps Kubernetes Spot Instance 2-Minute Preemption Drain Scheduler. Intercepts cloud spot termination notices, prioritizes graceful pod evictions, cordons compromised nodes, and redistributes critical workloads with zero downtime.",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.llinkedin.com/company/92955550",
+  "tools": [
+    {
+      "name": "schedule_spot_node_drain",
+      "description": "Coordinate graceful pod eviction within a 120-second spot instance preemption notice window.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "description": "Spot node identifier."
+          },
+          "seconds_remaining": {
+            "type": "integer",
+            "description": "Seconds before hard shutdown (standard 120s)."
+          },
+          "resident_pods": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Pods with pod_name, priority_class (SYSTEM_CRITICAL, PRODUCTION, BATCH), graceful_period_sec."
+          }
+        },
+        "required": [
+          "node_id",
+          "resident_pods"
+        ]
+      }
+    }
+  ]
+}
